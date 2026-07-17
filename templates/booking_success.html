@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="page-section">
+
+<div class="container">
+
+<div class="page-card text-center">
+
+<h1>🎉 Booking Confirmed</h1>
+
+<p>Your booking has been successfully confirmed.</p>
+
+<a href="{% url 'download_receipt' payment.id %}"
+   class="btn btn-warning">
+    📄 Download Receipt
+</a>
+
+<a href="{% url 'dashboard' %}" class="btn btn-warning">
+
+Go to Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

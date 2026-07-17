@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+<div class="container">
+
+<div class="dashboard-header">
+
+<h1>Welcome, {{ user.username }} 👋</h1>
+
+<p>Manage your bookings and account.</p>
+
+</div>
+
+<div class="row text-center g-4 mb-5">
+
+<div class="col-md-4">
+
+<div class="dashboard-box">
+
+<h2>{{ bookings.count }}</h2>
+
+<p>Total Bookings</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="dashboard-box">
+
+<h2>{{ wishlist.count }}</h2>
+
+<p>Wishlist</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="dashboard-box">
+
+<h2>{{ reviews.count }}</h2>
+
+<p>Reviews</p>
+
+</div>
+
+</div>
+
+</div>
+
+<h3 class="text-white mb-4">
+
+Recent Bookings
+
+</h3>
+
+<div class="row g-4">
+
+{% for booking in bookings %}
+
+<div class="col-lg-4">
+
+<div class="booking-card">
+
+<h4>{{ booking.hotel.name }}</h4>
+
+<p>📍 {{ booking.hotel.city }}</p>
+
+<p>📅 {{ booking.check_in }} - {{ booking.check_out }}</p>
+
+<p>Guests: {{ booking.guests }}</p>
+
+{% if booking.payment %}
+
+<span class="badge bg-success">
+
+Paid
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+
+Pending
+
+</span>
+
+{% endif %}
+
+</div>
+
+</div>
+
+{% empty %}
+
+<h4 class="text-white">
+
+No Bookings Yet
+
+</h4>
+{% for payment in payments %}
+
+<div class="payment-card">
+
+    <h4>{{ payment.booking.hotel.name }}</h4>
+
+    <p>₹{{ payment.amount }}</p>
+
+    <a href="{% url 'download_receipt' payment.id %}"
+       class="btn btn-warning">
+
+        Download Receipt
+
+    </a>
+
+</div>
+
+{% endfor %}
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Payment
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-lg">
+
+                <div class="card-header bg-warning text-dark text-center">
+
+                    <h3>Complete Your Payment</h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <h4>{{ booking.hotel.name }}</h4>
+
+                    <p><strong>City:</strong> {{ booking.hotel.city }}</p>
+
+                    <p><strong>Amount:</strong></p>
+
+                    <h2 class="text-success">
+                        ₹{{ booking.hotel.price }}
+                    </h2>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <label class="form-label">
+                            Payment Method
+                        </label>
+
+                        <select
+                            class="form-select mb-4"
+                            name="payment_method">
+
+                            <option value="UPI">UPI</option>
+
+                            <option value="Card">Credit / Debit Card</option>
+
+                            <option value="Net Banking">Net Banking</option>
+
+                            <option value="Cash">Cash</option>
+
+                        </select>
+
+                        <button
+                            class="btn btn-success w-100 btn-lg">
+
+                            💳 Pay Now
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

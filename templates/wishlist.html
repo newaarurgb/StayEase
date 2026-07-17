@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Wishlist
+{% endblock %}
+
+{% block content %}
+
+<section class="wishlist-section">
+
+    <div class="container">
+
+        <div class="section-title text-center mb-5">
+
+            <span>YOUR SAVED HOTELS</span>
+
+            <h2>My Wishlist ❤️</h2>
+
+            <p>Your favourite hotels saved for future trips.</p>
+
+        </div>
+
+        <div class="row g-4">
+
+            {% for item in wishlist %}
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="wishlist-card">
+
+                    <img src="{{ item.hotel.image.url }}" class="img-fluid" alt="{{ item.hotel.name }}">
+
+                    <div class="wishlist-content">
+
+                        <h4>{{ item.hotel.name }}</h4>
+
+                        <p>📍 {{ item.hotel.city }}</p>
+
+                        <h5>₹{{ item.hotel.price }}/Night</h5>
+
+                        <p>⭐ {{ item.hotel.rating }}</p>
+
+                        <div class="d-grid gap-2">
+
+                            <a href="{% url 'hotel_details' item.hotel.id %}" class="btn btn-outline-warning">
+                                View Hotel
+                            </a>
+
+                            <a href="{% url 'book_hotel' item.hotel.id %}" class="btn btn-warning">
+                                Book Now
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center">
+
+                <h3>No Hotels in Wishlist ❤️</h3>
+
+                <p>Save your favourite hotels to see them here.</p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

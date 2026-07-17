@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-card">
+
+<div class="container mt-5">
+
+<h2>
+
+Review
+
+{{ hotel.name }}
+
+</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button
+class="btn btn-success">
+
+Submit Review
+
+</button>
+
+</form>
+
+</div>
+</div>
+
+{% endblock %}

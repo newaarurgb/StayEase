@@ -1,0 +1,408 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<section class="hero" id="home">
+
+    <div class="hero-overlay"></div>
+
+    
+
+    <div class="container position-relative">
+    
+
+
+    <div class="container position-relative">
+
+        <div class="row align-items-center min-vh-100">
+
+            <!-- Left Content -->
+
+            <div class="col-lg-6">
+
+                <span class="hero-tag">
+                    ✨ India's Premium Hotel Booking Platform
+                </span>
+
+                <h1 class="hero-title">
+                    Discover
+                    <span>Your Perfect Stay</span>
+                </h1>
+
+                <p class="hero-description">
+                    Experience luxury hotels, premium resorts,
+                    budget-friendly stays, secure online payments,
+                    verified reviews and instant booking confirmations —
+                    all in one place.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#featured-hotels" class="btn btn-warning btn-lg">
+                        Explore Hotels
+                    </a>
+
+                    <a href="#about" class="btn btn-outline-light btn-lg">
+                        Learn More
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Right Side -->
+
+            <div class="col-lg-6">
+
+                <div class="hero-glass">
+
+                    <h3 class="text-white mb-4">
+                        Search Your Dream Hotel
+                    </h3>
+
+                    <form method="GET" action="{% url 'home' %}#featured-hotels" class="row g-3">
+
+                       <div class="col-12">
+    <input
+        type="text"
+        name="city"
+        class="form-control"
+        placeholder="📍 Destination"
+        value="{{ request.GET.city }}">
+</div>
+
+<div class="col-md-6">
+    <input
+        type="date"
+        name="checkin"
+        class="form-control">
+</div>
+
+<div class="col-md-6">
+    <input
+        type="date"
+        name="checkout"
+        class="form-control">
+</div>
+
+<div class="col-md-6">
+    <select
+        name="hotel_type"
+        class="form-select">
+
+        <option value="">Hotel Type</option>
+        <option>Luxury</option>
+        <option>Resort</option>
+        <option>Business</option>
+        <option>Budget</option>
+
+    </select>
+</div>
+
+<div class="col-md-6">
+    <input
+        type="number"
+        name="price"
+        class="form-control"
+        placeholder="Max Price">
+</div>
+
+<div class="col-12">
+    <button
+        type="submit"
+        class="btn btn-warning w-100">
+        🔍 Search Hotels
+    </button>
+</div> 
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- Featured Hotels -->
+<section class="featured-hotels" id="featured-hotels">
+
+    <div class="container">
+
+        <div class="section-title text-center">
+            <span>OUR HOTELS</span>
+            <h2>Featured Luxury Hotels</h2>
+            <p>
+                Discover handpicked luxury hotels, premium resorts and
+                unforgettable stays across India.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            {% for hotel in hotels %}
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="hotel-box">
+
+                    <div class="hotel-image">
+
+                        <img src="{{ hotel.image.url }}" alt="{{ hotel.name }}">
+
+                        <div class="price-tag">
+                            ₹{{ hotel.price }}/Night
+                        </div>
+
+                        <div class="rating-tag">
+                            ⭐ {{ hotel.rating }}
+                        </div>
+
+                    </div>
+
+                    <div class="hotel-content">
+
+                        <h3>{{ hotel.name }}</h3>
+
+                        <p class="location">
+                            📍 {{ hotel.city }}
+                        </p>
+
+                        <p class="description">
+                            {{ hotel.description|truncatewords:20 }}
+                        </p>
+
+                        <div class="hotel-buttons">
+
+                            <a href="{% url 'hotel_details' hotel.id %}"
+                               class="btn btn-outline-warning">
+                                View Details
+                            </a>
+
+                            <a href="{% url 'book_hotel' hotel.id %}"
+                               class="btn btn-warning">
+                                Book Now
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="text-center">
+                <h3 class="text-white">
+                    No Hotels Available
+                </h3>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="about" class="about-section">
+
+    <div class="container">
+
+        <div class="about-card">
+
+            <div class="about-content">
+
+                <h5 class="about-subtitle">
+                    ABOUT STAYEASE
+                </h5>
+
+                <h2 class="about-title">
+                    Experience Luxury &amp; Comfort Like Never Before
+                </h2>
+
+                <p class="about-text">
+                    StayEase is a modern hotel booking platform that helps travelers
+                    discover premium hotels, luxury resorts, and budget-friendly stays
+                    with ease. Our mission is to provide a seamless booking experience
+                    with secure payments, verified reviews, wishlists, and instant
+                    confirmations—all in one place.
+                </p>
+
+                <div class="about-features">
+
+                    <div class="feature-box">
+                        🏨
+                        <span>500+ Hotels</span>
+                    </div>
+
+                    <div class="feature-box">
+                        🌍
+                        <span>50+ Cities</span>
+                    </div>
+
+                    <div class="feature-box">
+                        ⭐
+                        <span>4.9 Rating</span>
+                    </div>
+
+                    <div class="feature-box">
+                        💳
+                        <span>Secure Payments</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="contact-section" id="contact">
+
+    <div class="container">
+
+        <div class="contact-card">
+
+            <div class="text-center mb-5">
+
+                <span class="contact-subtitle">
+                    GET IN TOUCH
+                </span>
+
+                <h2 class="contact-title">
+                    Contact StayEase
+                </h2>
+
+                <p class="contact-text">
+                    We'd love to hear from you. Whether you have questions,
+                    feedback, or need booking assistance, our team is here to help.
+                </p>
+
+            </div>
+    <div class="row g-5 align-items-stretch">
+
+    <!-- Left -->
+    <div class="col-lg-5">
+
+        <div class="contact-info">
+
+            <div class="info-box">
+                <div class="icon">📧</div>
+                <div>
+                    <h5>Email</h5>
+                    <p>support@stayease.com</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="icon">📞</div>
+                <div>
+                    <h5>Phone</h5>
+                    <p>+91 7845613445</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="icon">📍</div>
+                <div>
+                    <h5>Location</h5>
+                    <p>Chennai, Tamil Nadu, India</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right -->
+    <div class="col-lg-7">
+
+        <div class="mini-map">
+
+            <iframe
+                src="https://www.google.com/maps?q=Chennai,Tamil+Nadu&output=embed"
+                loading="lazy"
+                allowfullscreen>
+            </iframe>
+
+        </div>
+
+    </div>
+
+</div>
+            
+    </div>
+
+<div class="row mt-5">
+
+    <div class="col-lg-10 mx-auto">
+
+        <div class="contact-form-card">
+
+            <h3 class="text-center text-white mb-4">
+                Send us a Message
+            </h3>
+
+            <form>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <input type="text"
+                               class="form-control contact-input"
+                               placeholder="Your Name">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <input type="email"
+                               class="form-control contact-input"
+                               placeholder="Email Address">
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <input type="text"
+                           class="form-control contact-input"
+                           placeholder="Subject">
+                </div>
+
+                <div class="mb-4">
+                    <textarea
+                        class="form-control contact-input"
+                        rows="6"
+                        placeholder="Write your message..."></textarea>
+                </div>
+
+                <button class="btn btn-warning contact-btn w-100">
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+{% endblock %}

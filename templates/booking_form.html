@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<section class="page-section">
+
+
+
+<div class="page-card">
+
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Book {{ hotel.name }}
+    </h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-warning">
+            Confirm Booking
+        </button>
+
+    </form>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}
