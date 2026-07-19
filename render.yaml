@@ -2,9 +2,8 @@ services:
   - type: web
     name: stayease
     env: python
-    pythonVersion: 3.12
     buildCommand: |
       pip install -r requirements.txt
-      python manage.py collectstatic --noinput
-      python manage.py migrate
-    startCommand: gunicorn stayease.wsgi
+      python manage.py collectstatic --noinput --no-input
+      python manage.py migrate --noinput --verbosity 3
+    startCommand: gunicorn stayease.wsgi --bind 0.0.0.0:10000
